@@ -1,29 +1,26 @@
-﻿using Agency.Models.Contracts;
-using Agency.Validators;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+﻿using Agency.Exceptions;
+using Agency.Models.Contracts;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Agency.Models
 {
     public abstract class Vehicle: IVehicle
     {
-        public int _id;
-        public int _passengerCapacity;
-        public double _pricePerKilometer;
+        private int _id;
+        private int _passengerCapacity;
+        private protected string CapacityMessage = "A vehicle with less than 1 passengers or more than 800 passengers cannot exist!";
+        private double _pricePerKilometer;
+        private protected string PricePerKmMessage = "A vehicle with a price per kilometer lower than $0.10 or higher than $2.50 cannot exist!";
+
 
         public Vehicle(int id, int passengerCapacity,double pricePerKilometer)
         {
-            
+
             _id = id;
             _passengerCapacity = passengerCapacity;
             _pricePerKilometer = pricePerKilometer;
 
-            
+            PreValidate(passengerCapacity, pricePerKilometer);
         }
 
         public int PassengerCapacity => _passengerCapacity;
@@ -31,6 +28,19 @@ namespace Agency.Models
         public double PricePerKilometer => _pricePerKilometer;
 
         public int Id => _id;
+
+        private void PreValidate(int passengerCapacity, double pricePerKilometer)
+        {
+            if (passengerCapacity < 1 || passengerCapacity > 800)
+            {
+                throw new InvalidUserInputException("A vehicle with less than 1 passengers or more than 800 passengers cannot exist!");
+            }
+
+            if (pricePerKilometer < 0.10 || pricePerKilometer > 2.50)
+            {
+                throw new InvalidUserInputException("A vehicle with a price per kilometer lower than $0.10 or higher than $2.50 cannot exist!");
+            }
+        }
 
         public override string ToString()
         {

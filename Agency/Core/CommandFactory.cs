@@ -22,11 +22,12 @@ namespace Agency.Core
             // RemoveEmptyEntries makes sure no empty strings are added to the result of the split operation.
             string[] arguments = commandLine.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-            CommandType commandType = ParseCommandType(arguments[0]);
+            Enum.TryParse(arguments[0], true, out CommandType result);
             List<string> commandParameters = ExtractCommandParameters(arguments);
 
-            switch (commandType)
+            switch (result)
             {
+                
                 case CommandType.CreateAirplane:
                     return new CreateAirplaneCommand(commandParameters, repository);
                 case CommandType.CreateBus:
@@ -43,18 +44,20 @@ namespace Agency.Core
                     return new ListTicketsCommand(repository);
                 case CommandType.ListVehicles:
                     return new ListVehiclesCommand(repository);
+                case CommandType.InvalidCommand:
+
                 default:
-                    throw new InvalidOperationException($"Command with name: {commandType} doesn't exist!");
+                    throw new InvalidOperationException($"Command with name: {arguments[0]} doesn't exist!");
             }
         }
 
         // Attempts to parse CommandType from a given string value.
         // If successful, returns the command enum value, otherwise returns null
-        private CommandType ParseCommandType(string value)
-        {
-            Enum.TryParse(value, true, out CommandType result);
-            return result;
-        }
+        //private CommandType ParseCommandType(string value)
+        //{
+        //    Enum.TryParse(value, true, out CommandType result);
+        //    return result;
+        //}
 
         // Receives a full line and extracts the parameters that are needed for the command to execute.
         // For example, if the input line is "FilterBy Assignee John",

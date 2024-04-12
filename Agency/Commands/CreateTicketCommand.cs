@@ -26,9 +26,9 @@ namespace Agency.Commands
             // Parameters:
             //  [0] - journey ID
             //  [1] - administrativeCosts
-            double administrativeCosts = this.ParseDoubleParameter(CommandParameters[1], "administrative costs");
-            int jounreyID = this.ParseIntParameter(CommandParameters[0], "journey ID");
-            IJourney journey = base.Repository.FindJourneyById(jounreyID);
+            double administrativeCosts = this.ParseDoubleParameter(CommandParameters[1], "administrativeCosts");
+            int journeyId = this.ParseIntParameter(CommandParameters[0], "journeyId");
+            IJourney journey = base.Repository.FindJourneyById(journeyId);
             
 
             var ticket = base.Repository.CreateTicket(journey, administrativeCosts);

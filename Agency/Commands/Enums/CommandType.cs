@@ -2,6 +2,7 @@
 {
     public enum CommandType
     {
+        InvalidCommand,
         CreateAirplane,
         CreateBus,
         CreateTrain,
