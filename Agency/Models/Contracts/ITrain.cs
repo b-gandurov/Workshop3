@@ -1,6 +1,6 @@
 ﻿namespace Agency.Models.Contracts
 {
-    public interface ITrain
+    public interface ITrain:IHasId
     {
         int Carts { get; }
     }
