@@ -5,6 +5,7 @@ using Agency.Models.Contracts;
 
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Agency.Core
 {
@@ -49,22 +50,34 @@ namespace Agency.Core
 
         public IAirplane CreateAirplane(int passengerCapacity, double pricePerKilometer, bool isLowCost)
         {
-            throw new NotImplementedException();
+            var nextId = vehicles.Count;
+            var airplane = new Airplane(++nextId, passengerCapacity, pricePerKilometer, isLowCost);
+            this.vehicles.Add(airplane);
+            return airplane;
         }
 
         public ITrain CreateTrain(int passengerCapacity, double pricePerKilometer, int carts)
         {
-            throw new NotImplementedException();
+            var nextId = vehicles.Count;
+            var train = new Train(++nextId, passengerCapacity, pricePerKilometer, carts);
+            this.vehicles.Add(train);
+            return train;
         }
 
         public IJourney CreateJourney(string startLocation, string destination, int distance, IVehicle vehicle)
         {
-            throw new NotImplementedException();
+            var nextId = journeys.Count;
+            var journey = new Journey(++nextId, startLocation, destination, distance, vehicle);
+            this.journeys.Add(journey);
+            return journey;
         }
 
         public ITicket CreateTicket(IJourney journey, double administrativeCosts)
         {
-            throw new NotImplementedException();
+            var nextId = tickets.Count;
+            var ticket = new Ticket(++nextId, journey, administrativeCosts);
+            this.tickets.Add(ticket);
+            return ticket;
         }
 
         public IVehicle FindVehicleById(int id)
@@ -82,12 +95,28 @@ namespace Agency.Core
 
         public IJourney FindJourneyById(int id)
         {
-            throw new NotImplementedException();
+            foreach (var journey in journeys)
+            {
+                if (journey.Id == id)
+                {
+                    return journey;
+                }
+            }
+
+            throw new EntityNotFoundException($"Journey with id: {id} was not found!");
         }
 
         public ITicket FindTicketById(int id)
         {
-            throw new NotImplementedException();
+            foreach (var ticket in tickets)
+            {
+                if (ticket.Id == id)
+                {
+                    return ticket;
+                }
+            }
+
+            throw new EntityNotFoundException($"Ticket with id: {id} was not found!");
         }
     }
 }

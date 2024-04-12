@@ -17,8 +17,16 @@ namespace Agency.Commands
 
         public override string Execute()
         {
-            // TODO Implement command.
-            throw new NotImplementedException();
+            // Parameters:
+            //  [0] - passenger capacity
+            //  [1] - price per km
+            //  [2] - isLowCost?
+            int passengerCapacity = this.ParseIntParameter(this.CommandParameters[0], "passengerCapacity");
+            double pricePerKilometer = this.ParseDoubleParameter(this.CommandParameters[1], "pricePerKilometer");
+            bool isLowCost = this.ParseBoolParameter(this.CommandParameters[2], "isLowCost");
+
+            var airplane = this.Repository.CreateAirplane(passengerCapacity, pricePerKilometer, isLowCost);
+            return $"Vehicle with ID {airplane.Id} was created.";
         }
     }
 }

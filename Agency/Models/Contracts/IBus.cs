@@ -1,6 +1,6 @@
 ﻿namespace Agency.Models.Contracts
 {
-    public interface IBus :IHasId
+    public interface IBus :IVehicle
     {
         bool HasFreeTv { get; }
     }

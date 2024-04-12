@@ -1,5 +1,7 @@
 ﻿using Agency.Commands.Abstracts;
 using Agency.Core.Contracts;
+using Agency.Exceptions;
+using Agency.Models.Contracts;
 using System;
 using System.Collections.Generic;
 
@@ -16,8 +18,21 @@ namespace Agency.Commands
         
         public override string Execute()
         {
-            // TODO Implement command.
-            throw new NotImplementedException();
+            if (this.CommandParameters.Count < ExpectedNumberOfArguments)
+            {
+                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedNumberOfArguments}, Received: {this.CommandParameters.Count}");
+            }
+
+            // Parameters:
+            //  [0] - journey ID
+            //  [1] - administrativeCosts
+            double administrativeCosts = this.ParseDoubleParameter(CommandParameters[1], "administrative costs");
+            int jounreyID = this.ParseIntParameter(CommandParameters[0], "journey ID");
+            IJourney journey = base.Repository.FindJourneyById(jounreyID);
+            
+
+            var ticket = base.Repository.CreateTicket(journey, administrativeCosts);
+            return $"Ticket with ID {ticket.Id} was created.";
         }
     }
 }
