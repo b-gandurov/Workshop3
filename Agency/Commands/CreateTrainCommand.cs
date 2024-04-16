@@ -17,10 +17,11 @@ namespace Agency.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count < ExpectedNumberOfArguments)
-            {
-                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedNumberOfArguments}, Received: {this.CommandParameters.Count}");
-            }
+            ValidateParameterCount(ExpectedNumberOfArguments);
+            //if (this.CommandParameters.Count < ExpectedNumberOfArguments)
+            //{
+            //    throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedNumberOfArguments}, Received: {this.CommandParameters.Count}");
+            //}
 
             // Parameters:
             //  [0] - passenger capacity

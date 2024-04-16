@@ -52,5 +52,13 @@ namespace Agency.Commands.Abstracts
             }
             throw new InvalidUserInputException($"Invalid value for {parameterName}. Should be either true or false.");
         }
+
+        protected void ValidateParameterCount(int expectedCount)
+        {
+            if (CommandParameters.Count != expectedCount)
+            {
+                throw new InvalidUserInputException($"Expected {expectedCount} arguments, but got {CommandParameters.Count}.");
+            }
+        }
     }
 }

@@ -17,15 +17,18 @@ namespace Agency.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count < ExpectedNumberOfArguments)
-            {
-                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedNumberOfArguments}, Received: {this.CommandParameters.Count}");
-            }
+            ValidateParameterCount(ExpectedNumberOfArguments);
+
+            //if (this.CommandParameters.Count < ExpectedNumberOfArguments)
+            //{
+            //    throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedNumberOfArguments}, Received: {this.CommandParameters.Count}");
+            //}
 
             // Parameters:
             //  [0] - passenger capacity
             //  [1] - price per km
             //  [2] - has free TV?
+            
             int passengerCapacity = this.ParseIntParameter(this.CommandParameters[0], "passengerCapacity");
             double pricePerKilometer = this.ParseDoubleParameter(this.CommandParameters[1], "pricePerKilometer");
             bool hasFreeTv = this.ParseBoolParameter(this.CommandParameters[2], "hasFreeTv");

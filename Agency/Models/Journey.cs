@@ -63,6 +63,7 @@ namespace Agency.Models
             //Travel costs: VALUE
             StringBuilder ticketInfo = new StringBuilder();
             ticketInfo.AppendLine("Journey ----");
+            ticketInfo.AppendLine($"Start Location: {StartLocation}");
             ticketInfo.AppendLine($"Destination: {Destination}");
             ticketInfo.AppendLine($"Distance: {Distance}");
             ticketInfo.AppendLine($"Travel costs: {CalculatePrice():F2}");

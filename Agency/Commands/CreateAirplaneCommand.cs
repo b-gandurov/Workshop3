@@ -17,10 +17,12 @@ namespace Agency.Commands
 
         public override string Execute()
         {
+            ValidateParameterCount(ExpectedNumberOfArguments);
             // Parameters:
             //  [0] - passenger capacity
             //  [1] - price per km
             //  [2] - isLowCost?
+
             int passengerCapacity = this.ParseIntParameter(this.CommandParameters[0], "passengerCapacity");
             double pricePerKilometer = this.ParseDoubleParameter(this.CommandParameters[1], "pricePerKilometer");
             bool isLowCost = this.ParseBoolParameter(this.CommandParameters[2], "isLowCost");

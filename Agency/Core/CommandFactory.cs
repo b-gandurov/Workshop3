@@ -27,7 +27,7 @@ namespace Agency.Core
 
             switch (result)
             {
-                
+
                 case CommandType.CreateAirplane:
                     return new CreateAirplaneCommand(commandParameters, repository);
                 case CommandType.CreateBus:
@@ -45,7 +45,6 @@ namespace Agency.Core
                 case CommandType.ListVehicles:
                     return new ListVehiclesCommand(repository);
                 case CommandType.InvalidCommand:
-
                 default:
                     throw new InvalidOperationException($"Command with name: {arguments[0]} doesn't exist!");
             }
